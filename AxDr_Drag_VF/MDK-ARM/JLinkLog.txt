@@ -1,0 +1,142 @@
+T583C 000:158.004   SEGGER J-Link V8.18 Log File
+T583C 000:158.143   DLL Compiled: Mar  5 2025 14:38:20
+T583C 000:158.148   Logging started @ 2025-10-12 08:17
+T583C 000:158.152   Process: C:\Program Files\Install\Keil\UV4\UV4.exe
+T583C 000:158.167 - 158.155ms 
+T583C 000:158.176 JLINK_SetWarnOutHandler(...)
+T583C 000:158.180 - 0.006ms 
+T583C 000:158.187 JLINK_OpenEx(...)
+T583C 000:162.309   Firmware: J-Link  V11 compiled May 8 2024 15:36:02
+T583C 000:163.239   Firmware: J-Link  V11 compiled May 8 2024 15:36:02
+T583C 000:173.225   Hardware: V11.00
+T583C 000:173.239   S/N: 601013056
+T583C 000:173.245   OEM: SEGGER
+T583C 000:173.251   Feature(s): FlashBP, GDB, JFlash, FlashDL, RDI
+T583C 000:174.480   Bootloader: (FW returned invalid version)
+T583C 000:174.976   USB speed mode: Full speed (12 MBit/s)
+T583C 000:175.338   TELNET listener socket opened on port 19021
+T583C 000:175.435   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T583C 000:175.582   WEBSRV Webserver running on local port 19080
+T583C 000:175.695   Looking for J-Link GUI Server exe at: C:\Program Files\Install\Keil\ARM\Segger\JLinkGUIServer.exe
+T583C 000:175.784   Looking for J-Link GUI Server exe at: C:\Program Files\SEGGER\JLink_V818\JLinkGUIServer.exe
+T583C 000:175.843   Forking J-Link GUI Server: C:\Program Files\SEGGER\JLink_V818\JLinkGUIServer.exe
+T583C 000:327.461   J-Link GUI Server info: "J-Link GUI server V8.18 "
+T583C 000:331.325 - 173.132ms returns "O.K."
+T583C 000:331.346 JLINK_GetEmuCaps()
+T583C 000:331.353 - 0.005ms returns 0xB9FF7BBF
+T583C 000:331.362 JLINK_TIF_GetAvailable(...)
+T583C 000:331.502 - 0.142ms 
+T583C 000:331.518 JLINK_SetErrorOutHandler(...)
+T583C 000:331.522 - 0.004ms 
+T583C 000:331.563 JLINK_ExecCommand("ProjectFile = "E:\Code\sync\BaiduSyncdisk\Code\axdr_bsp\AxDr\AxDr_V2.6\MDK-ARM\JLinkSettings.ini"", ...). 
+T583C 000:342.014   Ref file found at: C:\Program Files\Install\Keil\ARM\Segger\JLinkDevices.ref
+T583C 000:342.142   REF file references invalid XML file: C:\Program Files\SEGGER\JLink_V818\JLinkDevices.xml
+T583C 000:342.743 - 11.184ms returns 0x00
+T583C 000:342.764 JLINK_ExecCommand("Device = STM32G474RETx", ...). 
+T583C 000:342.930   Flash bank @ 0x08000000: SFL: Parsing sectorization info from ELF file
+T583C 000:342.937     FlashDevice.SectorInfo[0]: .SectorSize = 0x00000800, .SectorStartAddr = 0x00000000
+T583C 000:342.943   FlashBank @0x08000000: Sectorization info from SFL ELF file ignored because sectorization override from DLL / XML file is active.
+T583C 000:343.118   Device "STM32G474RE" selected.
+T583C 000:343.465 - 0.694ms returns 0x00
+T583C 000:343.474 JLINK_ExecCommand("DisableConnectionTimeout", ...). 
+T583C 000:343.488   ERROR: Unknown command
+T583C 000:343.494 - 0.014ms returns 0x01
+T583C 000:343.499 JLINK_GetHardwareVersion()
+T583C 000:343.503 - 0.004ms returns 110000
+T583C 000:343.508 JLINK_GetDLLVersion()
+T583C 000:343.512 - 0.003ms returns 81800
+T583C 000:343.516 JLINK_GetOEMString(...)
+T583C 000:343.521 JLINK_GetFirmwareString(...)
+T583C 000:343.525 - 0.004ms 
+T583C 000:343.532 JLINK_GetDLLVersion()
+T583C 000:343.536 - 0.003ms returns 81800
+T583C 000:343.540 JLINK_GetCompileDateTime()
+T583C 000:343.544 - 0.003ms 
+T583C 000:343.550 JLINK_GetFirmwareString(...)
+T583C 000:343.553 - 0.003ms 
+T583C 000:343.558 JLINK_GetHardwareVersion()
+T583C 000:343.562 - 0.003ms returns 110000
+T583C 000:343.567 JLINK_GetSN()
+T583C 000:343.571 - 0.004ms returns 601013056
+T583C 000:343.575 JLINK_GetOEMString(...)
+T583C 000:343.587 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T583C 000:344.229 - 0.644ms returns 0x00
+T583C 000:344.235 JLINK_HasError()
+T583C 000:344.245 JLINK_SetSpeed(5000)
+T583C 000:344.439 - 0.194ms 
+T583C 000:344.861 JLINK_HasError()
+T583C 000:344.875 JLINK_SetResetType(JLINKARM_RESET_TYPE_NORMAL)
+T583C 000:344.879 - 0.004ms returns JLINKARM_RESET_TYPE_NORMAL
+T583C 000:344.893 JLINK_Reset()
+T583C 000:345.007   InitTarget() start
+T583C 000:345.014    J-Link Script File: Executing InitTarget()
+T583C 000:345.354   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 000:446.511   Error: Failed to initialized DAP.
+T583C 000:446.530   Can not attach to CPU. Trying connect under reset.
+T583C 000:497.680   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 000:598.498   Error: Failed to initialized DAP.
+T583C 000:598.517   Connecting to CPU via connect under reset failed.
+T583C 000:649.503   InitTarget() end - Took 304ms
+T583C 000:649.539   Connect failed. Resetting via Reset pin and trying again.
+T583C 000:711.149   InitTarget() start
+T583C 000:711.170    J-Link Script File: Executing InitTarget()
+T583C 000:711.350   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 000:812.498   Error: Failed to initialized DAP.
+T583C 000:812.524   Can not attach to CPU. Trying connect under reset.
+T583C 000:863.738   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 000:964.508   Error: Failed to initialized DAP.
+T583C 000:964.533   Connecting to CPU via connect under reset failed.
+T583C 001:014.908   InitTarget() end - Took 303ms
+T583C 001:014.932 - 670.039ms 
+T583C 001:014.946 JLINK_GetId()
+T583C 001:015.115   InitTarget() start
+T583C 001:015.121    J-Link Script File: Executing InitTarget()
+T583C 001:015.465   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 001:116.501   Error: Failed to initialized DAP.
+T583C 001:116.523   Can not attach to CPU. Trying connect under reset.
+T583C 001:167.689   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 001:268.498   Error: Failed to initialized DAP.
+T583C 001:268.516   Connecting to CPU via connect under reset failed.
+T583C 001:319.008   InitTarget() end - Took 303ms
+T583C 001:319.027   Connect failed. Resetting via Reset pin and trying again.
+T583C 001:379.709   InitTarget() start
+T583C 001:379.729    J-Link Script File: Executing InitTarget()
+T583C 001:379.845   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 001:481.409   Error: Failed to initialized DAP.
+T583C 001:481.435   Can not attach to CPU. Trying connect under reset.
+T583C 001:532.618   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 001:633.409   Error: Failed to initialized DAP.
+T583C 001:633.425   Connecting to CPU via connect under reset failed.
+T583C 001:683.889   InitTarget() end - Took 304ms
+T583C 001:683.908 - 668.961ms returns 0x00000000
+T583C 001:683.921 JLINK_GetId()
+T583C 001:684.035   InitTarget() start
+T583C 001:684.048    J-Link Script File: Executing InitTarget()
+T583C 001:684.348   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 001:785.251   Error: Failed to initialized DAP.
+T583C 001:785.275   Can not attach to CPU. Trying connect under reset.
+T583C 001:836.782   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 001:938.271   Error: Failed to initialized DAP.
+T583C 001:938.291   Connecting to CPU via connect under reset failed.
+T583C 001:989.250   InitTarget() end - Took 305ms
+T583C 001:989.269   Connect failed. Resetting via Reset pin and trying again.
+T583C 002:050.405   InitTarget() start
+T583C 002:050.425    J-Link Script File: Executing InitTarget()
+T583C 002:050.593   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 002:152.252   Error: Failed to initialized DAP.
+T583C 002:152.273   Can not attach to CPU. Trying connect under reset.
+T583C 002:202.779   SWD selected. Executing JTAG -> SWD switching sequence.
+T583C 002:304.248   Error: Failed to initialized DAP.
+T583C 002:304.270   Connecting to CPU via connect under reset failed.
+T583C 002:354.752   InitTarget() end - Took 304ms
+T583C 002:354.770 - 670.848ms returns 0x00000000
+T583C 002:358.951 JLINK_GetFirmwareString(...)
+T583C 002:358.966 - 0.015ms 
+T1E54 007:056.469 Looking for J-Link GUI Server exe at: C:\Program Files\Install\Keil\ARM\Segger\JLinkGUIServer.exe
+T1E54 007:056.524 Looking for J-Link GUI Server exe at: C:\Program Files\SEGGER\JLink_V818\JLinkGUIServer.exe
+T1E54 007:056.550 Forking J-Link GUI Server: C:\Program Files\SEGGER\JLink_V818\JLinkGUIServer.exe
+T1E54 007:060.397 J-Link GUI Server info: "J-Link GUI server V8.18 "
+T583C 011:349.638 JLINK_Close()
+T583C 011:355.713 - 6.072ms
+T583C 011:355.732   
+T583C 011:355.736   Closed
