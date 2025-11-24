@@ -6,6 +6,7 @@ axdr/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Drivers\CMSIS\Device\ST\STM32G4xx\Include\stm32g4xx.h \
   ..\Drivers\CMSIS\Device\ST\STM32G4xx\Include\stm32g474xx.h \
   ..\Drivers\CMSIS\Include\core_cm4.h \
+<<<<<<< HEAD
   C:\Program\ Files\Install\Keil\ARM\ARMCLANG\Bin\..\include\stdint.h \
   ..\Drivers\CMSIS\Include\cmsis_version.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
@@ -16,6 +17,18 @@ axdr/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Drivers\CMSIS\Device\ST\STM32G4xx\Include\system_stm32g4xx.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
   C:\Program\ Files\Install\Keil\ARM\ARMCLANG\Bin\..\include\stddef.h \
+=======
+  D:\Install\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ..\Drivers\CMSIS\Include\cmsis_version.h \
+  ..\Drivers\CMSIS\Include\cmsis_compiler.h \
+  ..\Drivers\CMSIS\Include\cmsis_armclang.h \
+  D:\Install\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  D:\Install\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  ..\Drivers\CMSIS\Include\mpu_armv7.h \
+  ..\Drivers\CMSIS\Device\ST\STM32G4xx\Include\system_stm32g4xx.h \
+  ..\Drivers\STM32G4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h \
+  D:\Install\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_rcc_ex.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_gpio.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_gpio_ex.h \
@@ -41,6 +54,7 @@ axdr/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim_ex.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart_ex.h \
+<<<<<<< HEAD
   ..\Core\Inc\adc.h ..\Core\Inc\dma.h ..\Core\Inc\fdcan.h \
   ..\Core\Inc\spi.h ..\Core\Inc\tim.h ..\Core\Inc\usart.h \
   ..\USB_Device\App\usb_device.h \
@@ -55,3 +69,21 @@ axdr/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   C:\Program\ Files\Install\Keil\ARM\ARMCLANG\Bin\..\include\stdarg.h \
   C:\Program\ Files\Install\Keil\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   ..\User\moldue\inc\modlue.h
+=======
+  ..\Core\Inc\adc.h ..\Core\Inc\main.h ..\Core\Inc\dma.h \
+  ..\Core\Inc\fdcan.h ..\Core\Inc\spi.h ..\Core\Inc\tim.h \
+  ..\Core\Inc\usart.h ..\USB_Device\App\usb_device.h \
+  ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h \
+  ..\USB_Device\Target\usbd_conf.h \
+  D:\Install\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
+  D:\Install\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  D:\Install\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
+  ..\Core\Inc\gpio.h ..\User\motor\common.h \
+  D:\Install\Keil_v5\ARM\ARMCLANG\Bin\..\include\float.h \
+  D:\Install\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
+  D:\Install\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
+  D:\Install\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
+  ..\Core\Inc\adc.h ..\Core\Inc\dma.h ..\Core\Inc\fdcan.h \
+  ..\Core\Inc\spi.h ..\Core\Inc\tim.h ..\Core\Inc\usart.h \
+  ..\Core\Inc\gpio.h ..\User\moldue\inc\modlue.h
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611

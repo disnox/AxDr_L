@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 axdr/fdcan.o: ..\Core\Src\fdcan.c ..\Core\Inc\fdcan.h ..\Core\Inc\main.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h \
+=======
+axdr/stm32g4xx_hal_msp.o: ..\Core\Src\stm32g4xx_hal_msp.c \
+  ..\Core\Inc\main.h ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal.h \
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
   ..\Core\Inc\stm32g4xx_hal_conf.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_rcc.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_def.h \
@@ -41,8 +46,14 @@ axdr/fdcan.o: ..\Core\Src\fdcan.c ..\Core\Inc\fdcan.h ..\Core\Inc\main.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_tim_ex.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart.h \
   ..\Drivers\STM32G4xx_HAL_Driver\Inc\stm32g4xx_hal_uart_ex.h \
+<<<<<<< HEAD
   ..\Core\Inc\adc.h ..\Core\Inc\dma.h ..\Core\Inc\spi.h \
   ..\Core\Inc\tim.h ..\Core\Inc\usart.h ..\USB_Device\App\usb_device.h \
+=======
+  ..\Core\Inc\adc.h ..\Core\Inc\dma.h ..\Core\Inc\fdcan.h \
+  ..\Core\Inc\spi.h ..\Core\Inc\tim.h ..\Core\Inc\usart.h \
+  ..\USB_Device\App\usb_device.h \
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
   ..\Middlewares\ST\STM32_USB_Device_Library\Core\Inc\usbd_def.h \
   ..\USB_Device\Target\usbd_conf.h \
   C:\Program\ Files\Install\Keil\ARM\ARMCLANG\Bin\..\include\stdio.h \

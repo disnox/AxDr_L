@@ -14,12 +14,15 @@
 #define _RAM_FUNC   __attribute__((section(".RamFunc")))
 #define _RAM_DATA   __attribute__((section(".data")))
 
+<<<<<<< HEAD
 //ATTR_RAMFUNC
 //ATTR_PLACE_AT_FAST_RAM
 //ATTR_RAMFUNC
 
 extern uint32_t run_tick, sys_freq;
 extern float run_us, tickinlus;
+=======
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
 // Type definitions for various data types
 typedef float f32;
@@ -98,6 +101,10 @@ typedef __I uint8_t vcu8;
 // Mathematical constants
 #define M_PI (3.14159265358f)         // Pi
 #define M_2PI (6.28318530716f)        // 2 * Pi
+<<<<<<< HEAD
+=======
+#define M_2_PI (6.28318530716f)        // 2 * Pi
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 #define div_M_2PI (0.159154943092391467f)        // 1/(2 * Pi)
 #define SQRT3 (1.73205080757f)        // Square root of 3
 #define SQRT3_BY_2 (0.86602540378f)   // Square root of 3 divided by 2
@@ -110,17 +117,32 @@ typedef __I uint8_t vcu8;
 #define reversebit(x, y) x ^= (1 << y)
 #define getbit(x, y) ((x) >> (y) & 1)
 
+<<<<<<< HEAD
 #define PWM_ARR() __HAL_TIM_GET_AUTORELOAD(&htim1)
 
 #define cs_down       HAL_GPIO_WritePin(SPI1_CSN_GPIO_Port, SPI1_CSN_Pin, GPIO_PIN_RESET);
 #define cs_up         HAL_GPIO_WritePin(SPI1_CSN_GPIO_Port, SPI1_CSN_Pin, GPIO_PIN_SET);
 
+=======
+#define Dead_Time 80
+#define PWM_ARR() __HAL_TIM_GET_AUTORELOAD(&htim1)
+
+#define set_dtc_a(value) __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, value)
+#define set_dtc_b(value) __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, value)
+#define set_dtc_c(value) __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, value)
+
+#define cs_down       HAL_GPIO_WritePin(SPI1_CSN_GPIO_Port, SPI1_CSN_Pin, GPIO_PIN_RESET);
+#define cs_up         HAL_GPIO_WritePin(SPI1_CSN_GPIO_Port, SPI1_CSN_Pin, GPIO_PIN_SET);
+
+
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 typedef enum
 {
 	foc_volt_mode,
 	foc_curr_mode,
 	foc_vel_mode,
 	foc_pos_mode,
+<<<<<<< HEAD
 } foc_mode_e;
 
 // 相序枚举
@@ -199,6 +221,11 @@ typedef struct
     float we;
 } pll_t;
 
+=======
+
+} foc_mode_e;
+
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 // FOC parameter structure
 typedef struct
 {
@@ -300,6 +327,7 @@ typedef enum
     stop = 0,
     prech = 1,
     runing = 2,
+<<<<<<< HEAD
     fault = 3
 } pm_state_bit_e;
 
@@ -401,10 +429,16 @@ typedef enum
     rel_pos_mode = 1  // 相对位置模式
 } pos_ctrl_mode_e;
 
+=======
+    fault = 3,
+} pm_state_bit_e;
+
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 // PMSM parameter structure
 typedef struct
 {
     float rated_voltage;   // 额定电压
+<<<<<<< HEAD
     float rated_current;   // 额定电流
     float rated_speed;     // 额定转速
     float rated_torque;    // 额定扭矩
@@ -414,6 +448,16 @@ typedef struct
     float peak_speed;      // 峰值转速
 
     phase_order_e phase_order;
+=======
+    float rated_current;   // 额定母线电流
+    float rated_speed;     // 额定转速
+    float rated_torque;    // 额定扭矩
+    float rated_power;     // 额定功率
+    float peak_current;    // 峰值母线电流
+    float peak_torque;     // 峰值扭矩
+    float peak_speed;      // 峰值转速
+	
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
     float Rs; // Resistance
     float Ls; // Inductance
     float Ld; // d-axis inductance
@@ -473,6 +517,7 @@ typedef struct
     float posm_ref; // Position reference
     float posr_set;
 
+<<<<<<< HEAD
     float mit_tor_set;
     float kp;
     float kd;
@@ -483,14 +528,28 @@ typedef struct
 {
     curve_type_e curve;         // 控制曲线类型
     pos_ctrl_mode_e pos_ctrl_mode;   // 位置控制模式：绝对/相对
+=======
+    float wm_lst;
+    float posm_lst;
+
+    float mit_tor_set;
+    float kp;
+    float kd;
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
     float pmax_vel;              // 正向最大速度限制
     float pmax_pos;              // 正向最大位置限制
     float pmax_tor;              // 正向最大转矩限制
+<<<<<<< HEAD
+=======
+    float pmax_iq;               // 正向最大电流限制
+    float pmax_tor_vel;          // 转矩模式正向最大速度限制
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
     float nmax_vel;              // 反向最大速度限制
     float nmax_pos;              // 反向最大位置限制
     float nmax_tor;              // 反向最大转矩限制
+<<<<<<< HEAD
 
     bool pos_reached;           // 目标位置到达信号
     bool vel_reached;           // 目标速度到达信号
@@ -510,6 +569,12 @@ typedef struct
     bool pos_set_by_flag;       // 位置设定是否按标志位更新
 
 } pmsm_app_ctrl_t;
+=======
+    float nmax_iq;               // 反向最大电流限制
+    float nmax_tor_vel;          // 转矩模式反向最大速度限制
+} pmsm_ctrl_t;
+
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
 // Period structure
 typedef struct
@@ -603,6 +668,7 @@ typedef struct
     float dead_time;
 } pmsm_board_t;
 
+<<<<<<< HEAD
 // Fault status structure for PMSM
 typedef union
 {
@@ -1226,18 +1292,26 @@ typedef struct
     float pos_2;
 } pos_box_t;
 
+=======
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
 // PMSM structure
 typedef struct
 {
+<<<<<<< HEAD
     mode_ctrl_t  mode;
     pm_ctrl_bit_e ctrl_bit;
     pm_state_bit_e state_bit;
 
+=======
+    pm_ctrl_bit_e ctrl_bit;
+    pm_state_bit_e state_bit;
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
     pmsm_board_t board;
     pmsm_adc_val_t adc;
     pmsm_para_t para;
     pmsm_ctrl_t ctrl;
+<<<<<<< HEAD
     pmsm_app_ctrl_t app_ctrl;
     pmsm_foc_t foc;
     period_t period;
@@ -1273,10 +1347,16 @@ typedef struct
     lpf_t wr_lpf;
 
     traj_t traj;
+=======
+    pmsm_foc_t foc;
+    period_t period;
+
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 } pmsm_t;
 
 extern pmsm_t pm;
 
+<<<<<<< HEAD
 extern eh_vobs_t eh_vobs;
 extern eh_tobs_t eh_tobs;
 
@@ -1319,6 +1399,8 @@ float pdff_ctrl(pid_para_t *pid, float ref_value, float fdback_value);
 void pll_calc(pll_t* pll, float pos);
 void ort_pll_calc(pll_t* pll, float alpha, float beta, float gain);
 
+=======
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 /* FOC calculation functions */
 void foc_calc(pmsm_foc_t * foc);
 void sin_cos_val(pmsm_foc_t* foc);
@@ -1333,28 +1415,45 @@ int svm(float alpha, float beta, float* ta, float* tb, float* tc);
 
 /* FOC drive functions */
 void pmsm_init(void);
+<<<<<<< HEAD
+=======
+void pmsm_peroid_init(void);
+void pmsm_protect_init(void);
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 void pmsm_lpf_init(void);
 void foc_para_calc(pmsm_t* pm);
 void foc_pwm_start(void);
 void foc_pwm_stop(void);
+<<<<<<< HEAD
 void foc_clear(void);
 void foc_pwm_run(pmsm_t* pm);
 void foc_pwm_duty_set(pmsm_t* pm);
 void foc_adc_sample(pmsm_t* pm);
 void foc_get_curr_off(void);
+=======
+void foc_clear(pmsm_t* pm);
+void foc_pwm_run(pmsm_t* pm);
+void foc_pwm_duty_set(pmsm_t* pm);
+void foc_adc_sample(pmsm_t* pm);
+void get_curr_off(void);
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 float foc_spd_measure_M(float pos, float fs);
 
 void foc_cur_pi_calc(pmsm_t* pm);
 void foc_spd_pi_calc(pmsm_t* pm);
 
 void foc_volt(pmsm_t* pm, float vd_ref, float vq_ref, float pos);
+<<<<<<< HEAD
 void foc_curr(pmsm_t* pm, float id_set, float iq_set, float pos);
 void foc_vel(pmsm_t* pm, float vel_set, float iq_set, float pos);
 void foc_pos(pmsm_t* pm, float pos_set, float vel_set, float iq_set, float pos);
+=======
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
 /* FOC control functions */
 void pmsm_state_ctrl(pmsm_t* pm);
 void pmsm_mode_ctrl(pmsm_t* pm);
+<<<<<<< HEAD
 void pmsm_observe(pmsm_t* pm);
 void pmsm_fault_check(pmsm_t* pm);
 
@@ -1446,5 +1545,9 @@ void upd_Flux(MRAS_Type *x);
 void eh_observer_init(void);
 void eh_speed_observer(eh_vobs_t *x, float wr, float tor);
 void eh_torque_observer(eh_tobs_t *x, float we, float tor);
+=======
+
+void force_volt_mode(pmsm_t* pm);
+>>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
 #endif
