@@ -11,18 +11,10 @@
 #include <string.h>
 #include "main.h"
 
+
 #define _RAM_FUNC   __attribute__((section(".RamFunc")))
 #define _RAM_DATA   __attribute__((section(".data")))
 
-<<<<<<< HEAD
-//ATTR_RAMFUNC
-//ATTR_PLACE_AT_FAST_RAM
-//ATTR_RAMFUNC
-
-extern uint32_t run_tick, sys_freq;
-extern float run_us, tickinlus;
-=======
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
 // Type definitions for various data types
 typedef float f32;
@@ -101,10 +93,7 @@ typedef __I uint8_t vcu8;
 // Mathematical constants
 #define M_PI (3.14159265358f)         // Pi
 #define M_2PI (6.28318530716f)        // 2 * Pi
-<<<<<<< HEAD
-=======
 #define M_2_PI (6.28318530716f)        // 2 * Pi
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
 #define div_M_2PI (0.159154943092391467f)        // 1/(2 * Pi)
 #define SQRT3 (1.73205080757f)        // Square root of 3
 #define SQRT3_BY_2 (0.86602540378f)   // Square root of 3 divided by 2
@@ -117,13 +106,6 @@ typedef __I uint8_t vcu8;
 #define reversebit(x, y) x ^= (1 << y)
 #define getbit(x, y) ((x) >> (y) & 1)
 
-<<<<<<< HEAD
-#define PWM_ARR() __HAL_TIM_GET_AUTORELOAD(&htim1)
-
-#define cs_down       HAL_GPIO_WritePin(SPI1_CSN_GPIO_Port, SPI1_CSN_Pin, GPIO_PIN_RESET);
-#define cs_up         HAL_GPIO_WritePin(SPI1_CSN_GPIO_Port, SPI1_CSN_Pin, GPIO_PIN_SET);
-
-=======
 #define Dead_Time 80
 #define PWM_ARR() __HAL_TIM_GET_AUTORELOAD(&htim1)
 
@@ -135,24 +117,10 @@ typedef __I uint8_t vcu8;
 #define cs_up         HAL_GPIO_WritePin(SPI1_CSN_GPIO_Port, SPI1_CSN_Pin, GPIO_PIN_SET);
 
 
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
-typedef enum
-{
-	foc_volt_mode,
-	foc_curr_mode,
-	foc_vel_mode,
-	foc_pos_mode,
-<<<<<<< HEAD
-} foc_mode_e;
-
-// 相序枚举
+// 相序枚举 只会调换BC
 typedef enum {
     ABC_PHASE = 0,      // 默认相序 A-B-C
     ACB_PHASE = 1,      // A-C-B
-    BAC_PHASE = 2,      // B-A-C
-    BCA_PHASE = 3,      // B-C-A
-    CAB_PHASE = 4,      // C-A-B
-    CBA_PHASE = 5,      // C-B-A
 } phase_order_e;
 
 // Low-pass filter structure
@@ -221,11 +189,15 @@ typedef struct
     float we;
 } pll_t;
 
-=======
+typedef enum
+{
+	foc_volt_mode,
+	foc_curr_mode,
+	foc_vel_mode,
+	foc_pos_mode,
 
 } foc_mode_e;
 
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
 // FOC parameter structure
 typedef struct
 {
@@ -327,8 +299,7 @@ typedef enum
     stop = 0,
     prech = 1,
     runing = 2,
-<<<<<<< HEAD
-    fault = 3
+    fault = 3,
 } pm_state_bit_e;
 
 typedef enum
@@ -336,7 +307,7 @@ typedef enum
     debug_mode    = 0,
     release_mode  = 1,
     calibrat_mode = 2,
-    fault_mode    = 3,
+    halt_mode     = 3
 } sys_mode_e;
 
 typedef enum
@@ -357,19 +328,25 @@ typedef enum
     tor_mode = 1,
     vel_mode = 2,
     pos_mode = 3,
+    cst_mode = 4,
+    csv_mode = 5,
+    csp_mode = 6,
 } release_mode_e;
 
 typedef enum
 {
-    normal_mode = 0,
-    quick_mode = 1,
-} fault_mode_e;
+    quick_mode = 0,
+    fault_mode = 1,
+} halt_mode_e;
 
 typedef enum
 {
-    enc_mod  = 0,
-    enc_cali = 1,
-    iden_pm  = 2
+    rotor_enc_mod   = 0,
+    rotor_enc_cali  = 1,
+    output_enc_mod  = 2,
+    output_enc_cali = 3,
+    iden_pm         = 4,
+    anticogging_pm  = 5
 } calibrat_mode_e;
 
 // 新增：mode控制结构体，统一管理所有mode
@@ -379,14 +356,14 @@ typedef struct
     debug_mode_e     debug;
     release_mode_e   release;
     calibrat_mode_e  calibrat;
-    fault_mode_e     fault;
-} mode_ctrl_t;
+    halt_mode_e      halt;
+} mode_ctrl_e;
 
 typedef enum
 {
     Sensorsory_s = 0,   // 单
-    Sensorsory_d = 1,
-    Sensorless   = 2,
+    Sensorsory_d = 1,   // 双
+    Sensorless   = 2,   // 无感观测器
 }  pos_mode_e;
 
 typedef enum
@@ -429,26 +406,16 @@ typedef enum
     rel_pos_mode = 1  // 相对位置模式
 } pos_ctrl_mode_e;
 
-=======
-    fault = 3,
-} pm_state_bit_e;
+typedef enum {
+    motor_polarity_p = 0,   // 正常极性：速度正值 -> 以编码器方向决定旋转方向
+    motor_polarity_n = 1    // 反向极性：速度正值 -> 反向旋转
+} motor_polarity_e;
 
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
+
 // PMSM parameter structure
 typedef struct
 {
     float rated_voltage;   // 额定电压
-<<<<<<< HEAD
-    float rated_current;   // 额定电流
-    float rated_speed;     // 额定转速
-    float rated_torque;    // 额定扭矩
-    float rated_power;     // 额定功率
-    float peak_current;    // 峰值电流
-    float peak_torque;     // 峰值扭矩
-    float peak_speed;      // 峰值转速
-
-    phase_order_e phase_order;
-=======
     float rated_current;   // 额定母线电流
     float rated_speed;     // 额定转速
     float rated_torque;    // 额定扭矩
@@ -456,8 +423,8 @@ typedef struct
     float peak_current;    // 峰值母线电流
     float peak_torque;     // 峰值扭矩
     float peak_speed;      // 峰值转速
-	
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
+
+    phase_order_e phase_order;
     float Rs; // Resistance
     float Ls; // Inductance
     float Ld; // d-axis inductance
@@ -517,64 +484,109 @@ typedef struct
     float posm_ref; // Position reference
     float posr_set;
 
-<<<<<<< HEAD
-    float mit_tor_set;
-    float kp;
-    float kd;
-} pmsm_ctrl_t;
-
-// APP控制参数结构体
-typedef struct
-{
-    curve_type_e curve;         // 控制曲线类型
-    pos_ctrl_mode_e pos_ctrl_mode;   // 位置控制模式：绝对/相对
-=======
     float wm_lst;
     float posm_lst;
 
     float mit_tor_set;
     float kp;
     float kd;
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
     float pmax_vel;              // 正向最大速度限制
     float pmax_pos;              // 正向最大位置限制
     float pmax_tor;              // 正向最大转矩限制
-<<<<<<< HEAD
-=======
     float pmax_iq;               // 正向最大电流限制
     float pmax_tor_vel;          // 转矩模式正向最大速度限制
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
     float nmax_vel;              // 反向最大速度限制
     float nmax_pos;              // 反向最大位置限制
     float nmax_tor;              // 反向最大转矩限制
-<<<<<<< HEAD
-
-    bool pos_reached;           // 目标位置到达信号
-    bool vel_reached;           // 目标速度到达信号
-    bool tor_reached;           // 目标转矩到达信号
-
-    float wm_lst;
-    float posm_lst;
-
-    float abs_pos_ref; // 绝对位置参考值
-    float rel_pos_ref; // 相对位置参考值
-
-    bool tor_set_immediate;     // 扭矩设定是否及时更新
-    bool tor_set_by_flag;       // 扭矩设定是否按标志位更新
-    bool vel_set_immediate;     // 速度设定是否及时更新
-    bool vel_set_by_flag;       // 速度设定是否按标志位更新
-    bool pos_set_immediate;     // 位置设定是否及时更新
-    bool pos_set_by_flag;       // 位置设定是否按标志位更新
-
-} pmsm_app_ctrl_t;
-=======
     float nmax_iq;               // 反向最大电流限制
     float nmax_tor_vel;          // 转矩模式反向最大速度限制
 } pmsm_ctrl_t;
 
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
+typedef struct
+{
+    float torm_set; //
+    float mit_tor_set;
+    float wm_set; // mechanical speed
+    float posm_set; // Position setpoint
+    float kp;
+    float kd;
+} pmsm_cmd_t;
+
+// APP控制参数结构体
+typedef struct
+{
+    curve_type_e v_curve;         // 控制曲线类型
+    curve_type_e p_curve;         // 控制曲线类型
+    pos_ctrl_mode_e pos_ctrl_mode;   // 位置控制模式：绝对/相对
+    motor_polarity_e polarity;    // 电机旋转方向控制
+
+    float pmax_velm;              // 正向最大速度限制
+    float pmax_posm;              // 正向最大位置限制
+    float pmax_torm;              // 正向最大转矩限制
+    float pmax_torm_vel;          // 转矩模式正向最大速度限制
+
+    float nmax_velm;              // 反向最大速度限制
+    float nmax_posm;              // 反向最大位置限制
+    float nmax_torm;              // 反向最大转矩限制
+    float nmax_torm_vel;          // 转矩模式反向最大速度限制
+
+    bool pos_reached;             // 目标位置到达信号
+    bool vel_reached;             // 目标速度到达信号
+    bool tor_reached;             // 目标转矩到达信号
+
+    float abs_pos_ref;            // 绝对位置参考值
+    float rel_pos_ref;            // 相对位置参考值
+
+    bool pos_pause;               // 暂停标志
+    bool last_pos_pause;          // 记住上一次暂停状态
+    float pause_dec;              // 暂停减速度
+    float quick_stop_dec;         // 快速停机减速度
+    float fault_stop_dec;         // 故障停机减速度
+
+    bool tor_set_immediate;       // 扭矩设定是否及时更新
+    bool tor_set_by_flag;         // 扭矩设定是否按标志位更新
+    bool vel_set_immediate;       // 速度设定是否及时更新
+    bool vel_set_by_flag;         // 速度设定是否按标志位更新
+    bool pos_set_immediate;       // 位置设定是否及时更新
+    bool pos_set_by_flag;         // 位置设定是否按标志位更新
+
+} pmsm_app_ctrl_t;
+
+typedef struct
+{
+    float vbus;
+    float ibus;
+    float i_abs;
+    int rev; // Rotor revolution
+    int m_rev; // Mechanical revolution
+    float e_pr; // Encoder Position
+
+    float p_e; // Electrical position
+    float sp_r; // Rotor position
+    float mp_r; // Rotor position
+    float mp_m; // Mechanical position
+    float sp_m; // Position
+    float we; // Electrical velocity
+    float wr; // Rotor velocity
+    float wm; // Mechanical velocity
+    float tor_r;
+    float tor_m;
+    float Tcoil; // Coil temperature
+    float Tmos; // MOS temperature
+
+    float i_a;
+    float i_b;
+    float i_c;
+
+    float v_a;
+    float v_b;
+    float v_c;
+
+    float i_d;
+    float i_q;
+} pmsm_display_t;
 
 // Period structure
 typedef struct
@@ -668,21 +680,21 @@ typedef struct
     float dead_time;
 } pmsm_board_t;
 
-<<<<<<< HEAD
 // Fault status structure for PMSM
 typedef union
 {
     struct
     {
-        uint32_t ov_curr : 1; // Overcurrent
-        uint32_t un_volt : 1; // Undervoltage
-        uint32_t ov_volt : 1; // Overvoltage
+        uint32_t ov_curr : 1; // Over current
+        uint32_t un_volt : 1; // Under voltage
+        uint32_t ov_volt : 1; // Over voltage
         uint32_t ov_tmos : 1; // Over temperature MOS
         uint32_t ov_tcoi : 1; // Over temperature coil
 
-        uint32_t enc_err : 1; // Encoder error
+        uint32_t enc_err  : 1; // Encoder error
         uint32_t ioff_err : 1; // Offset error
         uint32_t off_link : 1; // Link off
+        uint32_t ov_speed : 1;
     } bit;
 
     uint32_t all;
@@ -692,17 +704,25 @@ typedef union
 {
     struct
     {
-        uint32_t cali_sensor1 : 1;   // 校准第一编码器
-        uint32_t cali_sensor2 : 1;   // 校准第二编码器
-        uint32_t cali_sensor1_done : 1; // 校准第一编码器完成标志
-        uint32_t cali_sensor2_done : 1; // 校准第二编码器完成标志
-        uint32_t idpm : 1;           // 电机参数辨识
-        uint32_t idpm_done : 1;      // 电机参数辨识完成标志
-        uint32_t fwr_pm : 1;         // 写入电机参数
-        uint32_t general : 1;        // 通用标志
-
+        uint32_t auto_pid_calc     : 1;      // pid是否自动计算
+        uint32_t mod_sensor1       : 1;      // 调制第一编码器
+        uint32_t mod_sensor1_done  : 1;      // 调制第一编码器完成标志
+        uint32_t mod_sensor2       : 1;      // 调制第二编码器
+        uint32_t mod_sensor2_done  : 1;      // 调制第二编码器完成标志
+        uint32_t cali_sensor1      : 1;      // 校准第一编码器
+        uint32_t cali_sensor1_done : 1;      // 校准第一编码器完成标志
+        uint32_t cali_sensor2      : 1;      // 校准第二编码器
+        uint32_t cali_sensor2_done : 1;      // 校准第二编码器完成标志
+        uint32_t idpm              : 1;      // 电机参数辨识
+        uint32_t idpm_done         : 1;      // 电机参数辨识完成标志
+        uint32_t anticog           : 1;      // 齿槽转矩校准
+        uint32_t anticog_done      : 1;      // 齿槽转矩校准完成标志
+        uint32_t fwr_pm            : 1;      // 写入电机参数
+        uint32_t save_zero         : 1;      // 保存零点标志
+        uint32_t anticog_enable    : 1;      // 齿槽转矩补偿使能
+		uint32_t low_vel_high_mag  : 1;		 // 低速度强磁
+        uint32_t general           : 1;      // 通用标志
     } bit;
-
     uint32_t all;
 } pmsm_flag_t;
 
@@ -717,6 +737,7 @@ typedef struct
     float omt_value;
     float lt_value;
     float time_value;
+    float ov_speed_value;
 
     uint32_t uv_cnt;
     uint32_t ov_cnt;
@@ -724,6 +745,7 @@ typedef struct
     uint32_t ot_cnt;
     uint32_t omt_cnt;
     uint32_t link_out_cnt;
+    uint32_t ov_speed_cnt;
 
     uint32_t uv_cnt_value;
     uint32_t ov_cnt_value;
@@ -731,6 +753,7 @@ typedef struct
     uint32_t ot_cnt_value;
     uint32_t omt_cnt_value;
     uint32_t link_out_cnt_value;
+    uint32_t ov_speed_cnt_value;
 
     float uv_time;
     float ov_time;
@@ -738,6 +761,7 @@ typedef struct
     float ot_time;
     float omt_time;
     float link_out_time;
+    float ov_speed_time;
 } protect_t;
 
 
@@ -769,6 +793,7 @@ typedef enum
     cali_lut_cw,
     cali_lut_ccw,
     cali_off_calc,
+    cali_mean_calc,
     cali_lut_calc,
     cali_lut_end
 } cali_state_e;
@@ -779,6 +804,7 @@ typedef struct
     cali_state_e state;
 
     int dir;
+    uint8_t order;
     uint8_t pn;
     int32_t raw;
     uint8_t bit;
@@ -808,16 +834,30 @@ typedef struct
     uint32_t n1;
     uint32_t n2;
 
+    float e_off;
+    float r_off;
+
     uint32_t i, j, k;
     float p_raw[2];
     float p_err[256];
+    float p_error_arr[14 * 2 * 256];
     float mean;
     int ind;
-    float p_error_arr[21 * 2 * 256];
-
-    float e_off;
-    float r_off;
+    float temp;
 } cali_t;
+
+typedef struct
+{
+    uint16_t map_num;
+    uint16_t count;
+    uint16_t step_value;
+    uint16_t number;
+    uint16_t gap_number;
+    float wr_set;
+    float posr_set;
+    float delta_p;
+
+} anticog_t;
 
 typedef enum
 {
@@ -834,63 +874,64 @@ typedef struct
     float wr_set;
     float pe_acc;
     float pe_set;
-    uint8_t result[2];
+    uint16_t result;
 } mod_enc_t;
-
-typedef struct {
-	float y0;      // i(k)
-	float F[2];    // [i(k-1) u(k-1)]
-	float a[2 * 1];// estimation state,[1-R/L*Ts,1/L*Ts]
-	float p[2 * 2];
-} RLhf_t;
-
-typedef struct {
-	float y0;      // w(k)
-	float F[3];    // [w(k-1)	Te(k-1)	-1]
-	float a[3 * 1];// estimation state [1-B/J*T;1/J*T;Tl*T/J]
-	float p[3 * 3];
-} JBTl_t;
-
-typedef struct{
-	float L_est;
-	float Kr;
-	float Kf;
-	/*input para*/
-	float id_act;
-	float iq_act;
-	float ud;
-	float uq;
-	float we;
-	/*est para*/
-	float id_est;
-	float iq_est;
-	/* error */
-	float ed;
-	float eq;
-	/* integral of product */
-	float I_Rs;
-	float I_Fx; // Flux
-	/* transient para */
-	float at;	//	R/L,		=a0-Kr*I_rs
-	float bt;	//	flux/L,	=b0-Kf*I_Flux
-	float ct;	//	1/L,		=1/L0
-	/* initial papa */
-	float a0;	//	R0/L0
-	float b0;	//	Flux0/L0
-	float c0;	//	1/L0
-	float tp;	//	sample time
-	/* output para */
-	float R_est;
-	float F_est;
-}MRAS_Type;
 
 // Identification state enumeration
 typedef enum
 {
+    id_Rs,
+    id_Ls,
+    id_Fs,
+    id_Js,
+
     id_RL,
     id_Fx,
     id_JB,
+    id_end
 } id_state_e;
+
+// Identification state enumeration for Rs
+typedef enum
+{
+    id_Rs_init,
+    id_Rs_volt,
+    id_Rs_wait,
+    id_Rs_samp,
+    id_Rs_calc,
+    id_Rs_end,
+} id_Rs_state_e;
+
+// Identification state enumeration for Ls
+typedef enum
+{
+    id_Ls_init,
+    id_Ld_loop,
+    id_Lq_loop,
+    id_Ls_calc,
+    id_Ls_end,
+} id_Ls_state_e;
+
+// Identification state enumeration for Flux
+typedef enum
+{
+    id_Fs_init,
+    id_Fs_spd_l,
+    id_Fs_samp_l,
+    id_Fs_spd_h,
+    id_Fs_samp_h,
+    id_Fs_calc,
+    id_Fs_end,
+} id_Fs_state_e;
+
+// Identification state enumeration for Js
+typedef enum
+{
+    id_Js_init,
+    id_Js_loop,
+    id_Js_calc,
+    id_Js_end
+} id_Js_state_e;
 
 // Identification state enumeration for Rs
 typedef enum {
@@ -917,18 +958,19 @@ typedef enum
     id_Fx_end,
 } id_Fx_state_e;
 
-// Identification state enumeration for Js
-typedef enum
-{
-    id_Js_init,
-    id_Js_loop,
-    id_Js_calc,
-    id_Js_end
-} id_Js_state_e;
-
 // Parameter identification structure
 typedef struct
 {
+    id_state_e id_state;
+    id_RL_state_e id_RL_state;
+    id_Fx_state_e id_Fx_state;
+    id_JB_state_e id_JB_state;
+
+    id_Rs_state_e id_Rs_state;
+    id_Ls_state_e id_Ls_state;
+    id_Fs_state_e id_Fs_state;
+    id_Js_state_e id_Js_state;
+
     float i_alph;
     float i_beta;
     float v_alph;
@@ -955,6 +997,50 @@ typedef struct
     float tc;
 
     // Identification Rs
+    uint8_t steps;
+    uint8_t hstep;
+    uint8_t samps;
+    float is_max;
+    float is_thre;
+    float vs_step;
+    // Identification Ls
+    uint32_t L_cycle;
+    uint8_t Lcnt;
+    float Lts;
+    float vd_plus;
+    float vd_minu;
+    float vq_plus;
+    float vq_minu;
+    float Ld_plus;
+    float Ld_minu;
+    float Lq_plus;
+    float Lq_minu;
+    // Identification Flux
+    float fiq_ref;
+    float we_l;
+    float we_h;
+    float we_acc;
+    float we_ref;
+    float we_set;
+    float p_e;
+    float pe_acc;
+    float vs_l;
+    float vs_h;
+    float is_l;
+    float is_h;
+    // Identification Js
+    float Jvq_ref;
+    float Jiq_ref;
+    float Jiq_max;
+    float Jwr;
+    float Jfs;
+    float Jts;
+    float Jtc;
+    uint8_t Js_samps;
+    float lambda;
+    float Js_init;
+
+    // Identification RL
     float vd_max;
     float id_min;
     float id_max;
@@ -963,28 +1049,27 @@ typedef struct
     float RL_fs;
     float RL_time;      // Time for Res and Ls identification
     float R_est;
-    float Rs;
-    float Ls;
-
-    // Identification Flux
-    float fiq_ref;
+    // Identification Fx
     float fkp;
     float wr_set;
     float fx_time;
-    float flux;
-
-    // Identification Js
+    // Identification JB
+    float Tem;
     float JB_iq_ref;
     float JB_iq_max;
-
     float JB_fs;
     float JB_ts;
     float JB_time;
 
+    float Rs;
+    float Ld;
+    float Lq;
+    float Ldif;
+    float Ls;
+    float flux;
     float Js;
     float B;
 
-    float Tem;
 } idpm_t;
 
 // Nonlinear observer structure
@@ -1006,9 +1091,9 @@ typedef struct
     float id_out;
     float id_ref;
 
-    float* Rs; // Resistance of the motor
-    float* Ls; // Inductance of the motor
-    float* flux; // Magnetic flux
+    float *Rs; // Resistance of the motor
+    float *Ls; // Inductance of the motor
+    float *flux; // Magnetic flux
     float flux_sqr; // Square of magnetic flux
     float flux_err;
 
@@ -1283,37 +1368,42 @@ typedef struct
     enc_para_t mt6825;
     enc_para_t dm485enc;
 
+    int8_t  dir_1;
     int32_t raw_1;
     uint8_t bit_1;
     float pos_1;
+    uint16_t result_1;
 
+    int8_t  dir_2;
     int32_t raw_2;
     uint8_t bit_2;
     float pos_2;
+    uint16_t result_2;
 } pos_box_t;
 
-=======
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
+typedef struct
+{
+    float enc_lut;
+    float enc_table[256];
+    float aco_lut;
+    float aco_table[3840];
+} pmsm_map_t;
 
 // PMSM structure
 typedef struct
 {
-<<<<<<< HEAD
-    mode_ctrl_t  mode;
+    mode_ctrl_e  mode;
     pm_ctrl_bit_e ctrl_bit;
     pm_state_bit_e state_bit;
 
-=======
-    pm_ctrl_bit_e ctrl_bit;
-    pm_state_bit_e state_bit;
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
     pmsm_board_t board;
     pmsm_adc_val_t adc;
     pmsm_para_t para;
     pmsm_ctrl_t ctrl;
-<<<<<<< HEAD
+    pmsm_cmd_t cmd;
     pmsm_app_ctrl_t app_ctrl;
     pmsm_foc_t foc;
+    pmsm_display_t display;
     period_t period;
     pmsm_fault_t fault;
     pmsm_flag_t flag;
@@ -1324,6 +1414,7 @@ typedef struct
     cali_t calibr;
     mod_enc_t modenc;
     idpm_t idpm;
+    anticog_t anticog;
 
     nlob_t nlob;
     alob_t alob;
@@ -1347,16 +1438,12 @@ typedef struct
     lpf_t wr_lpf;
 
     traj_t traj;
-=======
-    pmsm_foc_t foc;
-    period_t period;
 
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
+    pmsm_map_t map;
 } pmsm_t;
 
 extern pmsm_t pm;
 
-<<<<<<< HEAD
 extern eh_vobs_t eh_vobs;
 extern eh_tobs_t eh_tobs;
 
@@ -1399,8 +1486,6 @@ float pdff_ctrl(pid_para_t *pid, float ref_value, float fdback_value);
 void pll_calc(pll_t* pll, float pos);
 void ort_pll_calc(pll_t* pll, float alpha, float beta, float gain);
 
-=======
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
 /* FOC calculation functions */
 void foc_calc(pmsm_foc_t * foc);
 void sin_cos_val(pmsm_foc_t* foc);
@@ -1415,47 +1500,38 @@ int svm(float alpha, float beta, float* ta, float* tb, float* tc);
 
 /* FOC drive functions */
 void pmsm_init(void);
-<<<<<<< HEAD
-=======
 void pmsm_peroid_init(void);
 void pmsm_protect_init(void);
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
 void pmsm_lpf_init(void);
 void foc_para_calc(pmsm_t* pm);
 void foc_pwm_start(void);
 void foc_pwm_stop(void);
-<<<<<<< HEAD
-void foc_clear(void);
-void foc_pwm_run(pmsm_t* pm);
-void foc_pwm_duty_set(pmsm_t* pm);
-void foc_adc_sample(pmsm_t* pm);
-void foc_get_curr_off(void);
-=======
 void foc_clear(pmsm_t* pm);
 void foc_pwm_run(pmsm_t* pm);
 void foc_pwm_duty_set(pmsm_t* pm);
 void foc_adc_sample(pmsm_t* pm);
-void get_curr_off(void);
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
-float foc_spd_measure_M(float pos, float fs);
+void foc_get_curr_off(void);
+float spd_measure_M(float pos, float fs);
 
 void foc_cur_pi_calc(pmsm_t* pm);
 void foc_spd_pi_calc(pmsm_t* pm);
 
 void foc_volt(pmsm_t* pm, float vd_ref, float vq_ref, float pos);
-<<<<<<< HEAD
 void foc_curr(pmsm_t* pm, float id_set, float iq_set, float pos);
 void foc_vel(pmsm_t* pm, float vel_set, float iq_set, float pos);
 void foc_pos(pmsm_t* pm, float pos_set, float vel_set, float iq_set, float pos);
-=======
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
 /* FOC control functions */
 void pmsm_state_ctrl(pmsm_t* pm);
 void pmsm_mode_ctrl(pmsm_t* pm);
-<<<<<<< HEAD
 void pmsm_observe(pmsm_t* pm);
+void pmsm_ctrl_set(pmsm_t* pm);
+void pmsm_ctrl_display(pmsm_t* pm);
 void pmsm_fault_check(pmsm_t* pm);
+void pmsm_slow_down(pmsm_t* pm, float dec);
+void pmsm_reset(pmsm_t* pm);
+void pmsm_quick_stop_mode(pmsm_t* pm);
+void pmsm_fault_stop_mode(pmsm_t* pm);
 
 void force_volt_mode(pmsm_t* pm);
 void open_volt_mode(pmsm_t* pm);
@@ -1465,10 +1541,17 @@ void sensory_pos_calc(pmsm_t* pm);
 void senless_pos_calc(pmsm_t* pm);
 void pos_calc(pmsm_t* pm);
 
-void axdr_mit_mode(pmsm_t* pm);
-void axdr_tor_mode(pmsm_t* pm);
-void axdr_vel_mode(pmsm_t* pm);
-void axdr_pos_mode(pmsm_t* pm);
+void pm_mit_mode(pmsm_t* pm);
+void pt_tor_mode(pmsm_t* pm);
+void pv_vel_mode(pmsm_t* pm);
+void pp_pos_mode(pmsm_t* pm);
+
+void cst_tor_mode(pmsm_t* pm);
+void csv_vel_mode(pmsm_t* pm);
+void csp_pos_mode(pmsm_t* pm);
+
+void pmsm_quick_stop_mode(pmsm_t* pm);
+void pmsm_fault_stop_mode(pmsm_t* pm);
 
 /* Encoder functions */
 void encoder_init(void);
@@ -1488,16 +1571,32 @@ float spd_measure(float pos, float fs, float filt_bw);
 
 /* PMSM identification functions */
 void iden_init(void);
-void iden_pmsm(idpm_t *x);
-void iden_RL(idpm_t *obj);
-void iden_JB(idpm_t *obj);
-void iden_Fx(idpm_t *obj);
+void iden_pmsm_first(idpm_t *x);
+void iden_Rs(idpm_t *x);
+void iden_Rs_reset(idpm_t *x);
+void iden_Ls(idpm_t *x);
+void iden_Ls_reset(idpm_t *x);
+void iden_Fs(idpm_t *x);
+void iden_Fs_reset(idpm_t *x);
+void iden_Js(idpm_t *x);
+void iden_Js_reset(idpm_t *x);
 
+void iden_pmsm_second(idpm_t *x);
+void iden_RL(idpm_t *x);
+void iden_RL_reset(idpm_t *x);
+void iden_Fx(idpm_t *x);
+void iden_Fx_reset(idpm_t *x);
+void iden_JB(idpm_t *x);
+void iden_JB_reset(idpm_t *x);
 
 /* Calibration functions */
 void cali_init(void);
 void cali_mag_encoder(pmsm_t *pm);
+void cali_reset_state(cali_t *x);
 void modulation_encoder(pmsm_t *pm);
+
+void anticog_init(void);
+void anticogging_calibration(pmsm_t *pm);
 
 /* Nonlinear observer functions */
 void nlob_init(void);
@@ -1520,34 +1619,18 @@ void hfsi_input(void);
 void esmo_init(void);
 void esmo_obe(esmo_t* x);
 
-void vofa_start(void);
 
 /* Initial position detection functions */
 void ipd_pos_run(ipd_t* obj, float* vd);
 
 void traj_init(void);
-//void spd_traj_plan(traj_t *x, float vel_init, float vel_end, float acc, float dec, float curve_mode);
-//void spd_traj_eval(traj_t *x);
-//
-//void pos_traj_plan(traj_t *x, float pos_init, float pos_end, float vel_init, float v_max, float acc, float dec, float curve_mode);
-//void pos_traj_eval(traj_t *x);
-extern traj_t Traj;
-void spd_traj_plan(float vel_init, float vel_end, float acc, float dec, float curve_mode);
-void spd_traj_eval(void);
-
-void pos_traj_plan(float pos_init, float pos_end, float vel_init, float v_max, float acc, float dec, float curve_mode);
-void pos_traj_eval(void);
-
-void upd_RLHF(RLhf_t *v);
-void upd_JBTl(JBTl_t *h);
-void upd_Flux(MRAS_Type *x);
+void spd_traj_plan(traj_t *x, float vel_init, float vel_end, float acc, float dec, float curve_mode);
+void spd_traj_eval(traj_t *x);
+void pos_traj_plan(traj_t *x, float pos_init, float pos_end, float vel_init, float v_max, float acc, float dec, float curve_mode);
+void pos_traj_eval(traj_t *x);
 
 void eh_observer_init(void);
 void eh_speed_observer(eh_vobs_t *x, float wr, float tor);
 void eh_torque_observer(eh_tobs_t *x, float we, float tor);
-=======
-
-void force_volt_mode(pmsm_t* pm);
->>>>>>> 157aa8c814c3698051e702968095d8070515b611
 
 #endif
